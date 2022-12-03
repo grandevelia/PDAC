@@ -12,6 +12,12 @@ parser.add_argument("--aux_checkpoint", type=str, required=True)
 parser.add_argument("--gan_checkpoint_dir", type=str, required=True)
 parser.add_argument("--submit_cmd", type=str, required=False, default="python -u")
 
+def is_PDAC(x):     
+    if "ductal adenocarcinoma" in x:         
+        return True     
+    else:         
+        return False
+
 def start_testing(class_pair,
                   test_class,
                   checkpoints_dir,
@@ -105,22 +111,12 @@ def test_experiment(data_root,
                           submit_cmd=submit_cmd)
 
 def get_config(experiment):
-    experiment_to_cfg = {"mnist": {"classes": [k for k in range(10)],
-                                   "input_size": 28,
-                                   "num_test": 1000,
-                                   "aux_downsample_factors": [(2,2),(2,2),(1,1),(1,1)]},
-                          "disc_a": {"classes": [0,1],
-                                     "input_size": 128,
-                                     "num_test": 1000,
-                                     "aux_downsample_factors": [(2,2),(2,2),(2,2),(2,2)]},
-                          "disc_b": {"classes": [0,1,2],
-                                     "input_size": 128,
-                                     "num_test": 1000,
-                                     "aux_downsample_factors": [(2,2),(2,2),(2,2),(2,2)]},
-                          "synapses": {"classes": ["gaba", "acetylcholine", "glutamate","serotonin", "octopamine", "dopamine"],
-                                       "input_size": 128,
-                                       "num_test": 500,
-                                       "aux_downsample_factors": [(2,2),(2,2),(2,2),(2,2)]}}
+    experiment_to_cfg = {
+        "tumor_normal": {"classes": ["tumor", "normal"],
+        "input_size": 128,
+        "num_test": 1000,
+        "aux_downsample_factors": [(2,2),(2,2),(2,2),(2,2)]}
+    }
 
     return experiment_to_cfg[experiment]
 

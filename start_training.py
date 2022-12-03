@@ -55,7 +55,7 @@ def train_mnist(train_setup, data_root, submit_cmd):
                    submit_cmd=submit_cmd)
 
 def train_disc_a(train_setup, data_root, submit_cmd):
-    datasets = ["0_1"]
+    datasets = ["tumor_normal"]
 
     data_roots = []
     for d in datasets:

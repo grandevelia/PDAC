@@ -34,7 +34,18 @@ from models import create_model
 from util.visualizer import save_images
 from util import html_util
 import ntpath
+import pathlib
+import platform
 
+plat = platform.system()
+
+if plat == 'Linux': pathlib.WindowsPath = pathlib.PosixPath
+
+def is_PDAC(x):     
+    if "ductal adenocarcinoma" in x:         
+        return True     
+    else:         
+        return False
 
 if __name__ == '__main__':
     opt = TestOptions().parse()  # get test options

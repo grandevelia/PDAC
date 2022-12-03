@@ -402,8 +402,11 @@ def define_AUX(checkpoint_path, input_size=128, aux_net="vgg2d", output_classes=
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     net.to(device)
     checkpoint = torch.load(checkpoint_path)
-    net.load_state_dict(checkpoint)
-    return net
+    return checkpoint.model
+    #print(checkpoint)
+    #net.load_state_dict(checkpoint)
+    #
+    #return net
 
 class ResnetBlock(nn.Module):
     """Define a Resnet block"""
